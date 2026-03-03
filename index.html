@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sorry Chitti</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f0f0;
+    }
+    #bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .page {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      max-width: 90%;
+    }
+    h1 {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .buttons {
+      margin-top: 20px;
+      position: relative;
+      height: 120px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      position: absolute;
+      transition: all 0.5s ease; /* smooth animation */
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+    .accepted {
+      background-color: #4CAF50;
+      color: white;
+      left: 20%;
+      top: 30px;
+    }
+    .not-accepted {
+      background-color: #f44336;
+      color: white;
+      left: 60%;
+      top: 30px;
+    }
+    .thankyou {
+      font-size: 24px;
+      color: #e91e63;
+      margin-top: 30px;
+      display: none;
+      animation: fadeIn 1s ease forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <img id="bg" src="https://copilot.microsoft.com/th/id/BCO.b0213ad5-831e-4642-ace3-ec1729720680.png" alt="Teddy Bear Background" onload="showPage('page1')">
+
+  <!-- Page 1 -->
+  <div class="page" id="page1">
+    <h1>Sorry My dear Chitti sailu Sorry for whatever happened😔,<br>please forgive me, I'm sorry.</h1>
+    <div class="buttons">
+      <button class="accepted" onclick="showThanks('thankyouMsg1')">Sorry Accepted</button>
+      <button class="not-accepted" id="notBtn1" onmouseover="moveButton('notBtn1','accepted1')" onclick="goToPage('page2')">Not Accepted</button>
+      <button class="accepted" id="accepted1" style="visibility:hidden;"></button>
+    </div>
+    <div class="thankyou" id="thankyouMsg1">💖 Thank you Chittilu 💖</div>
+  </div>
+
+  <!-- Page 2 -->
+  <div class="page" id="page2">
+    <h1>Is the reason Big or small🤔?</h1>
+    <div class="buttons">
+      <button class="accepted" onclick="goToPage('page3');showThanks('thankyouMsg2')">Big</button>
+      <button class="accepted" style="left:60%;" onclick="goToPage('page3');showThanks('thankyouMsg2')">Small</button>
+    </div>
+    <div class="thankyou" id="thankyouMsg2">💖 Thank you Chittilu 💖</div>
+  </div>
+
+  <!-- Page 3 -->
+  <div class="page" id="page3">
+    <h1>Either the reason is Big or small, issue should be resolved asap,<br>so forgive Vinnuu now 😜.</h1>
+    <div class="buttons">
+      <!-- Accepted shows thank you -->
+      <button class="accepted" onclick="showThanks('thankyouMsg3')">Sorry Accepted</button>
+      <!-- Not Accepted moves to Page 4 -->
+      <button class="not-accepted" id="notBtn2" onmouseover="moveButton('notBtn2','accepted2')" onclick="goToPage('page4')">Not Accepted</button>
+      <button class="accepted" id="accepted2" style="visibility:hidden;"></button>
+    </div>
+    <div class="thankyou" id="thankyouMsg3">💖 Thank you Chittilu 💖</div>
+  </div>
+
+  <!-- Page 4 -->
+  <div class="page" id="page4">
+    <h1>Forgive him this time, last chance!🥺🥺</h1>
+    <div class="buttons">
+      <button class="accepted" onclick="showThanks('thankyouMsg4')">Accepted</button>
+      <button class="accepted" style="left:60%;" onclick="showThanks('thankyouMsg4')">Accepted</button>
+    </div>
+    <div class="thankyou" id="thankyouMsg4">💖 Thank you Chittilu 💖</div>
+  </div>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function goToPage(id) {
+      showPage(id);
+    }
+
+    function moveButton(btnId, acceptedId) {
+      const btn = document.getElementById(btnId);
+      const container = btn.parentElement;
+      const acceptedBtn = document.getElementById(acceptedId);
+
+      const maxX = container.offsetWidth - btn.offsetWidth;
+      const maxY = container.offsetHeight - btn.offsetHeight;
+
+      let newX, newY;
+      const buffer = 30; // safe zone around accepted button
+      let tries = 0;
+
+      do {
+        newX = Math.floor(Math.random() * maxX);
+        newY = Math.floor(Math.random() * maxY);
+
+        const overlapX = newX < acceptedBtn.offsetLeft + acceptedBtn.offsetWidth + buffer &&
+                         newX + btn.offsetWidth > acceptedBtn.offsetLeft - buffer;
+        const overlapY = newY < acceptedBtn.offsetTop + acceptedBtn.offsetHeight + buffer &&
+                         newY + btn.offsetHeight > acceptedBtn.offsetTop - buffer;
+
+        if (!(overlapX && overlapY)) break;
+        tries++;
+      } while (tries < 50); // prevent infinite loop
+
+      btn.style.left = `${newX}px`;
+      btn.style.top = `${newY}px`;
+    }
+
+    function showThanks(msgId) {
+      // Hide all thankyou messages first
+      document.querySelectorAll('.thankyou').forEach(msg => msg.style.display = 'none');
+      // Show the thankyou message for the current page
+      const msg = document.getElementById(msgId);
+      if (msg) {
+        msg.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>	
