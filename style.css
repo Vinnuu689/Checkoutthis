@@ -1,0 +1,93 @@
+/* General page setup */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f0f0f0;
+}
+
+/* Background image */
+#bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* Page container */
+.page {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  max-width: 90%;
+}
+
+/* Headings */
+h1 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Button container */
+.buttons {
+  margin-top: 20px;
+  position: relative;
+  height: 120px;
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  position: absolute;
+  transition: all 0.5s ease; /* smooth animation */
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Accepted button style */
+.accepted {
+  background-color: #4CAF50;
+  color: white;
+  left: 20%;
+  top: 30px;
+}
+
+/* Not Accepted button style */
+.not-accepted {
+  background-color: #f44336;
+  color: white;
+  left: 60%;
+  top: 30px;
+}
+
+/* Thank you message */
+.thankyou {
+  font-size: 24px;
+  color: #e91e63;
+  margin-top: 30px;
+  display: none;
+  animation: fadeIn 1s ease forwards;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
